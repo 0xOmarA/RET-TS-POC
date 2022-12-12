@@ -71,13 +71,15 @@ class RadixEngineToolkit {
      * @return A string of the transaction manifest from the compiled intent or undefined if decompilation failed
      */
     manifestStringFromCompiledIntent(compiledIntent) {
-        var _a, _b, _c, _d;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
         let request = {
             "compiled_unknown_intent": buffer_1.Buffer.from(compiledIntent).toString("hex"),
             "manifest_instructions_output_format": "String"
         };
         let response = this.callWasmFunction(request, this.internalFFI.decompile_unknown_transaction_intent);
-        return (_d = (_c = (_b = (_a = response["signed_intent"]) === null || _a === void 0 ? void 0 : _a["intent"]) === null || _b === void 0 ? void 0 : _b["manifest"]) === null || _c === void 0 ? void 0 : _c["instructions"]) === null || _d === void 0 ? void 0 : _d["value"];
+        return ((_d = (_c = (_b = (_a = response === null || response === void 0 ? void 0 : response["signed_intent"]) === null || _a === void 0 ? void 0 : _a["intent"]) === null || _b === void 0 ? void 0 : _b["manifest"]) === null || _c === void 0 ? void 0 : _c["instructions"]) === null || _d === void 0 ? void 0 : _d["value"])
+            || ((_g = (_f = (_e = response === null || response === void 0 ? void 0 : response["intent"]) === null || _e === void 0 ? void 0 : _e["manifest"]) === null || _f === void 0 ? void 0 : _f["instructions"]) === null || _g === void 0 ? void 0 : _g["value"])
+            || ((_j = (_h = response === null || response === void 0 ? void 0 : response["manifest"]) === null || _h === void 0 ? void 0 : _h["instructions"]) === null || _j === void 0 ? void 0 : _j["value"]);
     }
     /**
      * A high-level method for calling functions from the `RadixEngineToolkitFFI` through a simple interface.
@@ -206,7 +208,7 @@ class RadixEngineToolkit {
 }
 exports.default = RadixEngineToolkit;
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
-    const rawHex = "1002000000100200000010020000001009000000070107220a4c170000000000000a56170000000000000acfd06067a32cfb5f110c00000045646473614564323535313901000000b320000000a4ee0783fcfc7760a1a182d0c0b241b171fd358dd680d8e083fd6f8a53c307d301000980969800090000000010020000003011030000000a00000043616c6c4d6574686f640200000010020000001106000000476c6f62616c01000000811b0000000257dc042cd8cb916f3630020a1f337cec5a54cfefa4c5084fbe3c0c080000006c6f636b5f66656530072a0000001001000000b5200000000000e8890423c78a0000000000000000000000000000000000000000000000000a00000043616c6c4d6574686f640200000010020000001106000000476c6f62616c01000000811b0000000257dc042cd8cb916f3630020a1f337cec5a54cfefa4c5084fbe3c0c040000006672656530070500000010000000000a00000043616c6c4d6574686f640200000010020000001106000000476c6f62616c01000000811b00000006ec05aa77b20761b8d7aa88e735ee0d09a8125be34bb4a251ed770c0d0000006465706f7369745f62617463683007180000001001000000a00e000000454e544952455f574f524b544f503030000000003011010000000c00000045646473614564323535313902000000b320000000a4ee0783fcfc7760a1a182d0c0b241b171fd358dd680d8e083fd6f8a53c307d3b4400000003e36af2beb25c5583dd51dfe028fcbb2dbd641ede41ce52075587d942743c40c3cb89ef1008317127cc670599b85d55c23877b646d9a2b858a1644a56f00dd02110c00000045646473614564323535313901000000b440000000f12907a9ed443bef1fb007f06d8e22593f9bd2da4110488a40eea5f2362686e9070b93b1a69ca540369997881ca1af4b1fccdb7eae263ec2b90c164c0da9320d";
+    const rawHex = "5c21022102210221090701070b0aa0000000000000000a04010000000000000a6fa3e0dd02000000110e4563647361536563703235366b3101b10279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f8179801000900e1f505070021022011020a43616c6c4d6574686f640221021106476c6f62616c01810257dc042cd8cb916f3630020a1f337cec5a54cfefa4c5084fbe3c0c086c6f636b5f6665652007245c2101b5000010632d5ec76b0500000000000000000000000000000000000000000000000d436c656172417574685a6f6e6500202000201100110e4563647361536563703235366b3101b200a975ca80a401fd36cc6e67d01fc5b3561082169b69c68d262177baaec81952854219097bfaae71b3d446c8e33095002dcde0e92dd67c291417dc6b9eb341262d";
     let toolkit = yield RadixEngineToolkit.fromPath("/Users/omarabdulla/Desktop/typescript/wasm/radix_engine_toolkit.wasm");
     let manifestString = toolkit.manifestStringFromCompiledIntent(buffer_1.Buffer.from(rawHex, "hex"));
     console.log(manifestString);
